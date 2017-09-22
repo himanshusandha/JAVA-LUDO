@@ -211,6 +211,17 @@ class Ludo extends Thread implements ActionListener
 	public void actionPerformed(ActionEvent ae)
 	{	
 		u_turn.setText("Turn:"+(turn+1));
+		if(playpos[turn][0]==homepos2[turn] && playpos[turn][1]==homepos2[turn] && playpos[turn][2]==homepos2[turn] && playpos[turn][3]==homepos2[turn])
+		{
+			winner[turn]++;
+			turn++;
+			turn%=n;
+			if(winner[0]>0 && winner[1]>0 && winner[2]>0 && winner[3]>0)
+			{
+				new WinnerList(user1,user2,user3,user4,winner,n);
+				f.dispose();
+			}
+		}
 		if(ae.getSource()==b[0])
 		{
 			Random r=new Random();
@@ -231,17 +242,6 @@ class Ludo extends Thread implements ActionListener
 		}
 		if(ae.getSource()!=b[0])
 		{
-			if(playpos[turn][0]==homepos2[turn] && playpos[turn][1]==homepos2[turn] && playpos[turn][2]==homepos2[turn] && playpos[turn][3]==homepos2[turn])
-			{
-				winner[turn]++;
-				turn++;
-				turn%=n;
-				if(winner[0]>0 && winner[1]>0 && winner[2]>0 && winner[3]>0)
-				{
-					new WinnerList(user1,user2,user3,user4,winner,n);
-					f.dispose();
-				}
-			}
 			for(int i=0;i<4;i++)
 			{
 				b[playpos[turn][i]].setEnabled(false);
